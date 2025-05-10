@@ -1,17 +1,16 @@
 buildscript {
-    ext.gradleAndroidVersion        = '3.0.0-beta7'
-    ext.kotlinVersion               = '1.1.4-3'
-    ext.bintrayVersion              = '1.7.3'
-    ext.mavenGradlePluginVersion    = '2.0'
+    ext.kotlinVersion               = '1.5.0'
 
     repositories {
         jcenter()
         google()
+        mavenCentral()
+        maven { url "https://repo.grails.org/grails/core/" }
+        maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:$gradleAndroidVersion"
-        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:$bintrayVersion"
-        classpath "com.github.dcendents:android-maven-gradle-plugin:$mavenGradlePluginVersion"
+        classpath "com.android.tools.build:gradle:4.2.2"
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     }
 }
@@ -30,7 +29,6 @@ configure(allprojects) {
         androidMinSdkVersion 		        = 14
         androidTargetSdkVersion             = 25
         androidCompileSdkVersion            = 25
-        androidBuildToolsVersion            = '26.0.2'
         androidSupportLibraryVersion        = '25.4.0'
 
         junitVersion                        = '4.12'
@@ -52,27 +50,4 @@ configure(allprojects) {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
-}
-
-ext {
-    bintrayRepo = 'maven'
-    bintrayName = POM_ARTIFACT_ID
-
-    publishedGroupId = POM_GROUP_ID
-    libraryName = 'Android Material Stepper'
-
-    libraryDescription = 'This library allows to use Material steppers inside Android applications.'
-
-    siteUrl = 'https://github.com/stepstone-tech/android-material-stepper'
-    gitUrl = 'https://github.com/stepstone-tech/android-material-stepper.git'
-
-    libraryVersion = POM_VERSION
-
-    developerId = 'zawadz88'
-    developerName = 'Piotr Zawadzki'
-    developerEmail = 'piotr.zawadzki@stepstone.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
 }
