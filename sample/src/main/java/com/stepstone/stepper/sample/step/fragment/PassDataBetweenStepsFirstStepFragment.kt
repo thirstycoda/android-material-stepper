@@ -17,16 +17,15 @@ limitations under the License.
 package com.stepstone.stepper.sample.step.fragment
 
 import android.content.Context
-import android.support.annotation.UiThread
+import android.os.Bundle
+import android.view.View
 import android.widget.EditText
-
+import androidx.annotation.UiThread
 import com.stepstone.stepper.BlockingStep
 import com.stepstone.stepper.StepperLayout
 import com.stepstone.stepper.VerificationError
 import com.stepstone.stepper.sample.DataManager
 import com.stepstone.stepper.sample.R
-
-import butterknife.BindView
 
 internal class PassDataBetweenStepsFirstStepFragment : ButterKnifeFragment(), BlockingStep {
 
@@ -37,10 +36,14 @@ internal class PassDataBetweenStepsFirstStepFragment : ButterKnifeFragment(), Bl
         }
     }
 
-    @BindView(R.id.editText)
     lateinit var editText: EditText
 
     lateinit var dataManager: DataManager
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        editText = view.findViewById(R.id.editText)
+    }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)

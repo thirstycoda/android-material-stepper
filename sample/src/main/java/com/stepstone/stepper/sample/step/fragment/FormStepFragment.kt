@@ -17,12 +17,12 @@ limitations under the License.
 package com.stepstone.stepper.sample.step.fragment
 
 import android.content.Context
+import android.os.Bundle
 import android.text.TextUtils
+import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
-import butterknife.BindView
-import butterknife.OnEditorAction
 import com.stepstone.stepper.Step
 import com.stepstone.stepper.VerificationError
 import com.stepstone.stepper.sample.OnProceedListener
@@ -37,10 +37,20 @@ internal class FormStepFragment : ButterKnifeFragment(), Step {
         }
     }
 
-    @BindView(R.id.editText)
     lateinit var editText: EditText
 
     private var onProceedListener: OnProceedListener? = null
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        editText = view.findViewById(R.id.editText)
+        editText.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE && onProceedListener != null) {
+                onProceedListener?.onProceed()
+            }
+            true
+        }
+    }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -65,13 +75,5 @@ internal class FormStepFragment : ButterKnifeFragment(), Step {
 
     override fun onError(error: VerificationError) {
         editText.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.shake_error))
-    }
-
-    @OnEditorAction(R.id.editText)
-    fun onEditorAction(actionId: Int): Boolean {
-        if (actionId == EditorInfo.IME_ACTION_DONE && onProceedListener != null) {
-            onProceedListener?.onProceed()
-        }
-        return true
     }
 }

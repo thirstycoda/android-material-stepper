@@ -1,16 +1,12 @@
 package com.stepstone.stepper.sample
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
-
+import androidx.appcompat.app.AppCompatActivity
 import com.stepstone.stepper.StepperLayout
 import com.stepstone.stepper.VerificationError
 import com.stepstone.stepper.sample.adapter.SampleStepAdapter
-
-import butterknife.BindView
-import butterknife.ButterKnife
 
 class NoFragmentsActivity : AppCompatActivity(), StepperLayout.StepperListener, OnNavigationBarListener {
 
@@ -19,13 +15,13 @@ class NoFragmentsActivity : AppCompatActivity(), StepperLayout.StepperListener, 
         private const val CURRENT_STEP_POSITION_KEY = "position"
     }
 
-    @BindView(R.id.stepperLayout)
     lateinit var stepperLayout: StepperLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_no_frag)
-        ButterKnife.bind(this)
+        stepperLayout = findViewById(R.id.stepperLayout)
+
         val startingStepPosition = savedInstanceState?.getInt(CURRENT_STEP_POSITION_KEY) ?: 0
         val sampleStepAdapter = SampleStepAdapter(this)
         stepperLayout.setAdapter(sampleStepAdapter, startingStepPosition)

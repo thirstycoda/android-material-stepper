@@ -17,17 +17,13 @@ limitations under the License.
 package com.stepstone.stepper.sample
 
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
-import butterknife.BindView
-
+import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
 import com.stepstone.stepper.StepperLayout
 import com.stepstone.stepper.VerificationError
 import com.stepstone.stepper.sample.adapter.SampleFragmentStepAdapter
-
-import butterknife.ButterKnife
 
 abstract class AbstractStepperActivity : AppCompatActivity(), StepperLayout.StepperListener, OnNavigationBarListener {
 
@@ -35,7 +31,6 @@ abstract class AbstractStepperActivity : AppCompatActivity(), StepperLayout.Step
         private const val CURRENT_STEP_POSITION_KEY = "position"
     }
 
-    @BindView(R.id.stepperLayout)
     lateinit var stepperLayout: StepperLayout
 
     @get:LayoutRes
@@ -46,8 +41,8 @@ abstract class AbstractStepperActivity : AppCompatActivity(), StepperLayout.Step
         title = "Stepper sample"
 
         setContentView(layoutResId)
+        stepperLayout = findViewById(R.id.stepperLayout)
 
-        ButterKnife.bind(this)
         val startingStepPosition = savedInstanceState?.getInt(CURRENT_STEP_POSITION_KEY) ?: 0
         stepperLayout.setAdapter(SampleFragmentStepAdapter(supportFragmentManager, this), startingStepPosition)
 

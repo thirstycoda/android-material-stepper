@@ -16,12 +16,14 @@ limitations under the License.
 
 package com.stepstone.stepper.sample.step.fragment
 
+import android.os.Bundle
 import android.os.Handler
-import android.support.annotation.UiThread
-import android.support.v7.app.AlertDialog
-import android.support.v7.widget.SwitchCompat
+import android.os.Looper
+import android.view.View
 import android.widget.Toast
-import butterknife.BindView
+import androidx.annotation.UiThread
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.SwitchCompat
 import com.stepstone.stepper.BlockingStep
 import com.stepstone.stepper.StepperLayout
 import com.stepstone.stepper.VerificationError
@@ -36,13 +38,17 @@ internal class DelayedTransitionStepFragmentSample : ButterKnifeFragment(), Bloc
         }
     }
 
-    @BindView(R.id.operationSwitch)
     lateinit var operationSwitch: SwitchCompat
 
     private var dialog: AlertDialog? = null
 
     override val layoutResId: Int
         get() = R.layout.fragment_step_delayed_transition
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        operationSwitch = view.findViewById(R.id.operationSwitch)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -59,11 +65,11 @@ internal class DelayedTransitionStepFragmentSample : ButterKnifeFragment(), Bloc
 
     @UiThread
     override fun onNextClicked(callback: StepperLayout.OnNextClickedCallback) {
-        val builder = AlertDialog.Builder(activity)
+        val builder = AlertDialog.Builder(requireContext())
         builder.setView(R.layout.dialog_loader)
         builder.setCancelable(false)
         dialog = builder.show()
-        Handler().postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             dialog?.dismiss()
             if (shouldOperationSucceed()) {
                 callback.goToNextStep()

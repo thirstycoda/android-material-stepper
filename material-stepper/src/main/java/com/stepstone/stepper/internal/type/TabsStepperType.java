@@ -16,14 +16,16 @@ limitations under the License.
 
 package com.stepstone.stepper.internal.type;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+
 import android.util.SparseArray;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
+
 import com.stepstone.stepper.R;
 import com.stepstone.stepper.StepperLayout;
-import com.stepstone.stepper.VerificationError;
 import com.stepstone.stepper.adapter.StepAdapter;
 import com.stepstone.stepper.internal.widget.TabsContainer;
 import com.stepstone.stepper.viewmodel.StepViewModel;
@@ -31,8 +33,6 @@ import com.stepstone.stepper.viewmodel.StepViewModel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static android.support.annotation.RestrictTo.Scope.LIBRARY;
 
 /**
  * Stepper type which displays horizontal stepper with tabs.
@@ -57,7 +57,7 @@ public class TabsStepperType extends AbstractStepperType {
                     new StepViewModel.Builder(null).setTitle("Step 1").create(),
                     new StepViewModel.Builder(null).setTitle("Step 2").setSubtitle("Optional").create())
             );
-            mTabsContainer.updateSteps(0, new SparseArray<VerificationError>(), false);
+            mTabsContainer.updateSteps(0, new SparseArray<>(), false);
             mTabsContainer.setVisibility(View.VISIBLE);
         }
     }

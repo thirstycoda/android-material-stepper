@@ -16,14 +16,14 @@ limitations under the License.
 
 package com.stepstone.stepper.internal.feedback;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
+import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 import android.view.View;
 
 import com.stepstone.stepper.R;
 import com.stepstone.stepper.StepperLayout;
 
-import static android.support.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static com.stepstone.stepper.internal.util.AnimationUtil.ALPHA_INVISIBLE;
 import static com.stepstone.stepper.internal.util.AnimationUtil.ALPHA_OPAQUE;
 
@@ -59,4 +59,7 @@ public class ContentOverlayStepperFeedbackType implements StepperFeedbackType {
                 .alpha(ALPHA_INVISIBLE)
                 .setDuration(PROGRESS_ANIMATION_DURATION);
     }
+
+    @Override
+    public void updateProgressMessage(@NonNull String message) {}
 }

@@ -18,35 +18,31 @@ package com.stepstone.stepper.sample
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
-import java.util.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import java.util.Arrays
 
 class MainActivity : AppCompatActivity() {
 
-    @BindView(R.id.list)
     lateinit var recyclerView: RecyclerView
-
-    @BindView(R.id.toolbar)
     lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        ButterKnife.bind(this)
+        recyclerView = findViewById(R.id.list)
+        toolbar = findViewById(R.id.toolbar)
 
         setSupportActionBar(toolbar)
 
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager =
+            LinearLayoutManager(this)
         recyclerView.adapter = SampleItemAdapter()
     }
 
@@ -100,28 +96,25 @@ class MainActivity : AppCompatActivity() {
 
     internal class SampleItemViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        @BindView(R.id.item_sample_title)
-        lateinit var title: TextView
-
-        @BindView(R.id.item_sample_subtitle)
-        lateinit var subtitle: TextView
+        var title: TextView
+        var subtitle: TextView
 
         lateinit var item: SampleItem
 
         init {
-            ButterKnife.bind(this, itemView)
+            title = itemView.findViewById(R.id.item_sample_title)
+            subtitle = itemView.findViewById(R.id.item_sample_subtitle)
         }
 
         internal fun bindItem(item: SampleItem) {
             this.item = item
             title.text = item.title
             subtitle.text = item.subtitle
-        }
 
-        @OnClick
-        internal fun onClick(v: View) {
-            val context = v.context
-            context.startActivity(Intent(context, item.activityClass))
+            itemView.setOnClickListener{ v ->
+                val context = v.context
+                context.startActivity(Intent(context, item.activityClass))
+            }
         }
     }
 

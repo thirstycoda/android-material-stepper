@@ -4,10 +4,15 @@ apply plugin: 'kotlin-kapt'
 apply from: "$rootDir.path/config/project_properties.gradle"
 
 android {
-    compileSdkVersion project.androidCompileSdkVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
 
     defaultConfig {
         applicationId "com.stepstone.stepper.sample"
+        compileSdk project.androidCompileSdkVersion
         minSdkVersion project.androidMinSdkVersion
         targetSdkVersion project.androidTargetSdkVersion
         versionCode 1
@@ -36,13 +41,14 @@ android {
     adbOptions {
         installOptions getAdbInstallOptions()
     }
+    namespace 'com.stepstone.stepper.sample'
 }
 
 dependencies {
     implementation project(':material-stepper')
-    implementation "com.android.support:appcompat-v7:$androidSupportLibraryVersion"
-    implementation "com.android.support:recyclerview-v7:$androidSupportLibraryVersion"
-    implementation "com.android.support:design:$androidSupportLibraryVersion"
+    implementation "androidx.appcompat:appcompat:1.0.0"
+    implementation "androidx.recyclerview:recyclerview:1.0.0"
+    implementation "com.google.android.material:material:1.0.0"
 
     implementation "com.jakewharton:butterknife:$butterknifeVersion"
     kapt "com.jakewharton:butterknife-compiler:$butterknifeVersion"
@@ -51,19 +57,19 @@ dependencies {
 
     androidTestImplementation project(':espresso-material-stepper')
 
-    androidTestImplementation "com.android.support.test:runner:$supportTestVersion"
-    androidTestImplementation "com.android.support.test:rules:$supportTestVersion"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
-    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$espressoVersion"
-    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$espressoVersion"
+    androidTestImplementation "androidx.test.ext:junit:1.1.1"
+    androidTestImplementation "androidx.test:rules:1.1.1"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.1.0"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:3.1.0"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:3.1.0"
 
-    androidTestImplementation("com.android.support:support-annotations:$androidSupportLibraryVersion") {
-        force = true
+    androidTestImplementation("androidx.annotation:annotation:1.2.0") {
+        // No need to force the version anymore
     }
-    androidTestImplementation("com.android.support:support-v4:$androidSupportLibraryVersion") {
-        force = true
+    androidTestImplementation("androidx.legacy:legacy-support-v4:1.0.0") {
+        // Use the AndroidX equivalent of `support-v4`
     }
-    androidTestImplementation("com.android.support:appcompat-v7:$androidSupportLibraryVersion") {
-        force = true
+    androidTestImplementation("androidx.appcompat:appcompat:1.4.0") {
+        // Use the AndroidX equivalent of `appcompat-v7`
     }
 }

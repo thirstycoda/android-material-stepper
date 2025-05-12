@@ -1,8 +1,8 @@
 package com.stepstone.stepper.sample.adapter
 
 import android.content.Context
-import android.support.annotation.IntRange
-import android.support.v4.app.FragmentManager
+import androidx.annotation.IntRange
+import androidx.fragment.app.FragmentManager
 
 import com.stepstone.stepper.Step
 import com.stepstone.stepper.adapter.AbstractFragmentStepAdapter
@@ -23,10 +23,10 @@ class SampleFragmentStepAdapter(fm: FragmentManager, context: Context) : Abstrac
     }
 
     override fun createStep(position: Int): Step {
-        when (position) {
-            0 -> return StepFragmentSample.newInstance(R.layout.fragment_step)
-            1 -> return StepFragmentSample.newInstance(R.layout.fragment_step2)
-            2 -> return StepFragmentSample.newInstance(R.layout.fragment_step3)
+        return when (position) {
+            0 -> StepFragmentSample.newInstance(R.layout.fragment_step)
+            1 -> StepFragmentSample.newInstance(R.layout.fragment_step2)
+            2 -> StepFragmentSample.newInstance(R.layout.fragment_step3)
             else -> throw IllegalArgumentException("Unsupported position: " + position)
         }
     }

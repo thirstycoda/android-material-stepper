@@ -18,12 +18,11 @@ package com.stepstone.stepper.sample.step.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.LayoutRes
 import android.text.Html
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
-import butterknife.BindView
+import androidx.annotation.LayoutRes
 import com.stepstone.stepper.Step
 import com.stepstone.stepper.VerificationError
 import com.stepstone.stepper.sample.OnNavigationBarListener
@@ -48,7 +47,6 @@ internal class StepFragmentSample : ButterKnifeFragment(), Step {
         }
     }
 
-    @BindView(R.id.button)
     lateinit var button: Button
 
     private var i = 0
@@ -63,8 +61,10 @@ internal class StepFragmentSample : ButterKnifeFragment(), Step {
     }
 
     @Suppress("DEPRECATION")
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        button = view.findViewById(R.id.button)
         if (savedInstanceState != null) {
             i = savedInstanceState.getInt(CLICKS_KEY)
         }
@@ -79,7 +79,7 @@ internal class StepFragmentSample : ButterKnifeFragment(), Step {
     }
 
     override val layoutResId: Int
-        get() = arguments.getInt(LAYOUT_RESOURCE_ID_ARG_KEY)
+        get() = arguments!!.getInt(LAYOUT_RESOURCE_ID_ARG_KEY)
 
     override fun verifyStep(): VerificationError? {
         return if (isAboveThreshold) null else VerificationError("Click ${TAP_THRESHOLD - i} more times!")
@@ -100,8 +100,8 @@ internal class StepFragmentSample : ButterKnifeFragment(), Step {
         onNavigationBarListener?.onChangeEndButtonsEnabled(isAboveThreshold)
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
-        outState!!.putInt(CLICKS_KEY, i)
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putInt(CLICKS_KEY, i)
         super.onSaveInstanceState(outState)
     }
 

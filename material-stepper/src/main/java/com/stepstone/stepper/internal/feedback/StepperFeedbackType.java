@@ -1,7 +1,7 @@
 package com.stepstone.stepper.internal.feedback;
 
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 
 /**
@@ -66,4 +66,5 @@ public interface StepperFeedbackType {
      */
     void hideProgress();
 
+    void updateProgressMessage(@NonNull String message);
 }

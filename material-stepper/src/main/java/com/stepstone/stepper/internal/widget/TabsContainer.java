@@ -17,11 +17,11 @@ limitations under the License.
 package com.stepstone.stepper.internal.widget;
 
 import android.content.Context;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
-import android.support.annotation.UiThread;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.UiThread;
+import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -37,7 +37,7 @@ import com.stepstone.stepper.viewmodel.StepViewModel;
 
 import java.util.List;
 
-import static android.support.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 
 /**
  * Layout used for displaying tabs from the horizontal stepper.
@@ -60,11 +60,7 @@ public class TabsContainer extends FrameLayout {
         @UiThread
         void onTabClicked(int position);
 
-        TabItemListener NULL = new TabItemListener() {
-            @Override
-            public void onTabClicked(int position) {
-            }
-        };
+        TabItemListener NULL = position -> {};
     }
 
     @ColorInt
@@ -78,11 +74,11 @@ public class TabsContainer extends FrameLayout {
 
     private int mDividerWidth = StepperLayout.DEFAULT_TAB_DIVIDER_WIDTH;
 
-    private int mContainerLateralPadding;
+    private final int mContainerLateralPadding;
 
-    private HorizontalScrollView mTabsScrollView;
+    private final HorizontalScrollView mTabsScrollView;
 
-    private LinearLayout mTabsInnerContainer;
+    private final LinearLayout mTabsInnerContainer;
 
     private TabItemListener mListener = TabItemListener.NULL;
 
@@ -176,12 +172,7 @@ public class TabsContainer extends FrameLayout {
         view.setErrorColor(mErrorColor);
         view.setDividerWidth(mDividerWidth);
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mListener.onTabClicked(position);
-            }
-        });
+        view.setOnClickListener(view1 -> mListener.onTabClicked(position));
 
         return view;
     }

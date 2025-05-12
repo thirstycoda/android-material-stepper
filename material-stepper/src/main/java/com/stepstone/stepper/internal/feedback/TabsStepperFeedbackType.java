@@ -16,8 +16,8 @@ limitations under the License.
 
 package com.stepstone.stepper.internal.feedback;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
+import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.LinearInterpolator;
@@ -26,7 +26,7 @@ import android.widget.TextView;
 import com.stepstone.stepper.R;
 import com.stepstone.stepper.StepperLayout;
 
-import static android.support.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static com.stepstone.stepper.internal.util.AnimationUtil.ALPHA_INVISIBLE;
 import static com.stepstone.stepper.internal.util.AnimationUtil.ALPHA_OPAQUE;
 
@@ -41,13 +41,13 @@ public class TabsStepperFeedbackType implements StepperFeedbackType {
     private boolean mTabNavigationEnabled;
 
     @NonNull
-    private TextView mProgressMessageTextView;
+    private final TextView mProgressMessageTextView;
 
     @NonNull
-    private View mTabsScrollingContainer;
+    private final View mTabsScrollingContainer;
 
     @NonNull
-    private StepperLayout mStepperLayout;
+    private final StepperLayout mStepperLayout;
 
     public TabsStepperFeedbackType(@NonNull StepperLayout stepperLayout) {
         mProgressMessageTranslationWhenHidden = stepperLayout.getResources().getDimension(R.dimen.ms_progress_message_translation_when_hidden);
@@ -88,6 +88,11 @@ public class TabsStepperFeedbackType implements StepperFeedbackType {
                 .setStartDelay(PROGRESS_ANIMATION_DURATION)
                 .setInterpolator(new AccelerateInterpolator())
                 .setDuration(PROGRESS_ANIMATION_DURATION);
+    }
+
+    @Override
+    public void updateProgressMessage(@NonNull String message) {
+        mProgressMessageTextView.setText(message);
     }
 
     private void setTabNavigationEnabled(boolean tabNavigationEnabled) {

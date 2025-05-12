@@ -17,13 +17,9 @@ limitations under the License.
 package com.stepstone.stepper.sample
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-
+import androidx.appcompat.app.AppCompatActivity
 import com.stepstone.stepper.StepperLayout
 import com.stepstone.stepper.sample.adapter.PassDataBetweenStepsFragmentStepAdapter
-
-import butterknife.BindView
-import butterknife.ButterKnife
 
 class PassDataBetweenStepsActivity : AppCompatActivity(), DataManager {
 
@@ -35,7 +31,6 @@ class PassDataBetweenStepsActivity : AppCompatActivity(), DataManager {
         private const val DATA = "data"
     }
 
-    @BindView(R.id.stepperLayout)
     lateinit var stepperLayout: StepperLayout
 
     private var data: String? = null
@@ -45,7 +40,8 @@ class PassDataBetweenStepsActivity : AppCompatActivity(), DataManager {
         title = "Stepper sample"
 
         setContentView(R.layout.activity_pass_data_between_steps)
-        ButterKnife.bind(this)
+        stepperLayout = findViewById(R.id.stepperLayout)
+
         val startingStepPosition = savedInstanceState?.getInt(CURRENT_STEP_POSITION_KEY) ?: 0
         data = savedInstanceState?.getString(DATA)
         stepperLayout.setAdapter(PassDataBetweenStepsFragmentStepAdapter(supportFragmentManager, this), startingStepPosition)

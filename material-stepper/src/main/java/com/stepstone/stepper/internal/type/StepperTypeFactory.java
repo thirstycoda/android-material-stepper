@@ -16,12 +16,12 @@ limitations under the License.
 
 package com.stepstone.stepper.internal.type;
 
-import android.support.annotation.RestrictTo;
+import androidx.annotation.RestrictTo;
 import android.util.Log;
 
 import com.stepstone.stepper.StepperLayout;
 
-import static android.support.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 
 /**
  * Factory class for creating stepper types.
@@ -39,17 +39,22 @@ public class StepperTypeFactory {
      */
     public static AbstractStepperType createType(int stepType, StepperLayout stepperLayout) {
         switch (stepType) {
-            case AbstractStepperType.DOTS:
+            case AbstractStepperType.DOTS -> {
                 return new DotsStepperType(stepperLayout);
-            case AbstractStepperType.PROGRESS_BAR:
+            }
+            case AbstractStepperType.PROGRESS_BAR -> {
                 return new ProgressBarStepperType(stepperLayout);
-            case AbstractStepperType.TABS:
+            }
+            case AbstractStepperType.TABS -> {
                 return new TabsStepperType(stepperLayout);
-            case AbstractStepperType.NONE:
+            }
+            case AbstractStepperType.NONE -> {
                 return new NoneStepperType(stepperLayout);
-            default:
+            }
+            default -> {
                 Log.e(TAG, "Unsupported type: " + stepType);
                 throw new IllegalArgumentException("Unsupported type: " + stepType);
+            }
         }
     }
 }

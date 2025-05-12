@@ -16,13 +16,13 @@ limitations under the License.
 
 package com.stepstone.stepper.internal.feedback;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
+import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.support.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 
 /**
  * A stepper feedback type which is a composition of other feedback type, which allows to select only a group of feedback types.
@@ -32,7 +32,7 @@ import static android.support.annotation.RestrictTo.Scope.LIBRARY;
 public class StepperFeedbackTypeComposite implements StepperFeedbackType {
 
     @NonNull
-    private List<StepperFeedbackType> mChildren = new ArrayList<>();
+    private final List<StepperFeedbackType> mChildren = new ArrayList<>();
 
     @Override
     public void showProgress(@NonNull String progressMessage) {
@@ -45,6 +45,13 @@ public class StepperFeedbackTypeComposite implements StepperFeedbackType {
     public void hideProgress() {
         for (StepperFeedbackType child : mChildren) {
             child.hideProgress();
+        }
+    }
+
+    @Override
+    public void updateProgressMessage(@NonNull String message) {
+        for (StepperFeedbackType child : mChildren) {
+            child.updateProgressMessage(message);
         }
     }
 

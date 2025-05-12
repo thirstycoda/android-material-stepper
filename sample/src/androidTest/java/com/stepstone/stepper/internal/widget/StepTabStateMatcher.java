@@ -1,6 +1,6 @@
 package com.stepstone.stepper.internal.widget;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
@@ -22,17 +22,12 @@ public class StepTabStateMatcher extends TypeSafeMatcher<StepTab> {
     @Override
     protected boolean matchesSafely(StepTab item) {
         StepTab.AbstractState currentState = item.mCurrentState;
-        switch (expectedState) {
-            case ACTIVE:
-                return currentState instanceof StepTab.ActiveNumberState;
-            case INACTIVE:
-                return currentState instanceof StepTab.InactiveNumberState;
-            case DONE:
-                return currentState instanceof StepTab.DoneState;
-            case WARNING:
-                return currentState instanceof StepTab.WarningState;
-        }
-        return false;
+        return switch (expectedState) {
+            case ACTIVE -> currentState instanceof StepTab.ActiveNumberState;
+            case INACTIVE -> currentState instanceof StepTab.InactiveNumberState;
+            case DONE -> currentState instanceof StepTab.DoneState;
+            case WARNING -> currentState instanceof StepTab.WarningState;
+        };
     }
 
     @Override

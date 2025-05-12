@@ -16,12 +16,12 @@ limitations under the License.
 
 package com.stepstone.stepper.internal.feedback;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
+import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 
 import com.stepstone.stepper.StepperLayout;
 
-import static android.support.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 
 /**
  * Feedback stepper type which disables the buttons in the bottom navigation when an operation is in progress.
@@ -30,7 +30,7 @@ import static android.support.annotation.RestrictTo.Scope.LIBRARY;
 public class DisabledBottomNavigationStepperFeedbackType implements StepperFeedbackType {
 
     @NonNull
-    private StepperLayout mStepperLayout;
+    private final StepperLayout mStepperLayout;
 
     public DisabledBottomNavigationStepperFeedbackType(@NonNull StepperLayout stepperLayout) {
         mStepperLayout = stepperLayout;
@@ -44,6 +44,11 @@ public class DisabledBottomNavigationStepperFeedbackType implements StepperFeedb
     @Override
     public void hideProgress() {
         setButtonsEnabled(true);
+    }
+
+    @Override
+    public void updateProgressMessage(@NonNull String message) {
+
     }
 
     private void setButtonsEnabled(boolean enabled) {

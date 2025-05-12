@@ -17,14 +17,13 @@ limitations under the License.
 package com.stepstone.stepper.sample.step.fragment
 
 import android.content.Context
+import android.os.Bundle
+import android.view.View
 import android.widget.TextView
-
 import com.stepstone.stepper.Step
 import com.stepstone.stepper.VerificationError
 import com.stepstone.stepper.sample.DataManager
 import com.stepstone.stepper.sample.R
-
-import butterknife.BindView
 
 internal class PassDataBetweenStepsSecondStepFragment : ButterKnifeFragment(), Step {
 
@@ -35,10 +34,14 @@ internal class PassDataBetweenStepsSecondStepFragment : ButterKnifeFragment(), S
         }
     }
 
-    @BindView(R.id.stepContent)
     lateinit var stepContent: TextView
 
     lateinit var dataManager: DataManager
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        stepContent = view.findViewById(R.id.stepContent)
+    }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)

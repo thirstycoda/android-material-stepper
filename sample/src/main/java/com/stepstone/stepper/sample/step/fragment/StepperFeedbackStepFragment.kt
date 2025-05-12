@@ -18,16 +18,14 @@ package com.stepstone.stepper.sample.step.fragment
 
 import android.os.Bundle
 import android.os.Handler
-import android.support.annotation.UiThread
+import android.os.Looper
 import android.view.View
 import android.widget.TextView
-
+import androidx.annotation.UiThread
 import com.stepstone.stepper.BlockingStep
 import com.stepstone.stepper.StepperLayout
 import com.stepstone.stepper.VerificationError
 import com.stepstone.stepper.sample.R
-
-import butterknife.BindView
 
 internal class StepperFeedbackStepFragment : ButterKnifeFragment(), BlockingStep {
 
@@ -44,12 +42,12 @@ internal class StepperFeedbackStepFragment : ButterKnifeFragment(), BlockingStep
         }
     }
 
-    @BindView(R.id.stepContent)
     lateinit var stepContent: TextView
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        stepContent.text = "Step content #${arguments.getInt(STEP_POSITION)} \n ${getString(R.string.lorem_ipsum)}"
+        stepContent = view.findViewById(R.id.stepContent)
+        stepContent.text = "Step content #${arguments!!.getInt(STEP_POSITION)} \n ${getString(R.string.lorem_ipsum)}"
     }
 
     override fun verifyStep(): VerificationError? {
@@ -63,10 +61,13 @@ internal class StepperFeedbackStepFragment : ButterKnifeFragment(), BlockingStep
     @UiThread
     override fun onNextClicked(callback: StepperLayout.OnNextClickedCallback) {
         callback.stepperLayout.showProgress("Operation in progress, please wait...")
-        Handler().postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
+            callback.stepperLayout.updateProgressMessage("wait a little longer...")
+        }, 5000L)
+        Handler(Looper.getMainLooper()).postDelayed({
             callback.goToNextStep()
             callback.stepperLayout.hideProgress()
-        }, 2000L)
+        }, 10000L)
     }
 
     override fun onCompleteClicked(callback: StepperLayout.OnCompleteClickedCallback) {

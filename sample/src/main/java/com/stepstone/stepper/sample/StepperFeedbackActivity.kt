@@ -17,16 +17,12 @@ limitations under the License.
 package com.stepstone.stepper.sample
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-
+import androidx.appcompat.app.AppCompatActivity
 import com.stepstone.stepper.StepperLayout
 import com.stepstone.stepper.internal.feedback.StepperFeedbackType
 import com.stepstone.stepper.sample.adapter.StepperFeedbackFragmentStepAdapter
-
-import butterknife.BindView
-import butterknife.ButterKnife
 
 class StepperFeedbackActivity : AppCompatActivity() {
 
@@ -35,7 +31,6 @@ class StepperFeedbackActivity : AppCompatActivity() {
         private const val CURRENT_STEP_POSITION_KEY = "position"
     }
 
-    @BindView(R.id.stepperLayout)
     lateinit var stepperLayout: StepperLayout
 
     private var menu: Menu? = null
@@ -45,7 +40,8 @@ class StepperFeedbackActivity : AppCompatActivity() {
         title = "Stepper sample"
 
         setContentView(R.layout.activity_stepper_feedback)
-        ButterKnife.bind(this)
+        stepperLayout = findViewById(R.id.stepperLayout)
+
         val startingStepPosition = savedInstanceState?.getInt(CURRENT_STEP_POSITION_KEY) ?: 0
         stepperLayout.setAdapter(StepperFeedbackFragmentStepAdapter(supportFragmentManager, this), startingStepPosition)
     }

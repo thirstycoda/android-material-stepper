@@ -2,21 +2,19 @@ package com.stepstone.stepper.sample
 
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.support.annotation.ColorInt
+import androidx.annotation.ColorInt
 import android.view.View
-import butterknife.BindColor
+import androidx.core.content.ContextCompat
 
 /**
  * @author Piotr Zawadzki
  */
 class SetButtonColorProgrammaticallyActivity : AbstractStepperActivity() {
 
-    @BindColor(R.color.ms_custom_button_text_color)
     lateinit var customButtonColor: ColorStateList
 
     @ColorInt
     @JvmField
-    @BindColor(R.color.ms_black)
     var blackColorInt: Int = 0
 
     override val layoutResId: Int
@@ -24,6 +22,8 @@ class SetButtonColorProgrammaticallyActivity : AbstractStepperActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        customButtonColor = ContextCompat.getColorStateList(this, R.color.ms_custom_button_text_color)!!
+        blackColorInt = ContextCompat.getColor(this, com.stepstone.stepper.R.color.ms_black)
         stepperLayout.setNextButtonColor(customButtonColor)
         stepperLayout.setBackButtonColor(customButtonColor)
         stepperLayout.setCompleteButtonColor(customButtonColor)
